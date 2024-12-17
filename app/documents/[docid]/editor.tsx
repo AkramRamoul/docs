@@ -3,13 +3,35 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
-
+import Heading from "@tiptap/extension-heading";
 import StarterKit from "@tiptap/starter-kit";
-
+import Image from "@tiptap/extension-image";
+import ImageResize from "tiptap-extension-resize-image";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 const Editor = () => {
   const editor = useEditor({
-    extensions: [StarterKit, TaskList, TaskItem.configure({ nested: true })],
-    content: "<p>Hello World! 🌎️</p>",
+    extensions: [
+      StarterKit,
+      TaskList,
+      Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
+      TaskItem.configure({ nested: true }),
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+      Image,
+      ImageResize,
+    ],
+    content: `
+        <p>This is a basic example of implementing images. Drag to re-order.</p>
+        <img src="https://placehold.co/800x400" />
+        <img src="https://placehold.co/800x400/6A00F5/white" />
+      `,
     immediatelyRender: false,
     editorProps: {
       attributes: {
