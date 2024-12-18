@@ -11,10 +11,33 @@ import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
+import { useEditorStore } from "@/store/useEditorStore";
 const Editor = () => {
+  const { setEditor } = useEditorStore();
   const editor = useEditor({
+    onDestroy() {
+      setEditor(null);
+    },
+    onCreate: ({ editor }) => {
+      setEditor(editor);
+    },
+    onTransaction({ editor }) {
+      setEditor(editor);
+    },
+    onFocus({ editor }) {
+      setEditor(editor);
+    },
+    onBlur({ editor }) {
+      setEditor(editor);
+    },
+    onContentError({ editor }) {
+      setEditor(editor);
+    },
+    onUpdate({ editor }) {
+      setEditor(editor);
+    },
     extensions: [
-      StarterKit,
+      StarterKit.configure({ heading: false }),
       TaskList,
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       TaskItem.configure({ nested: true }),
