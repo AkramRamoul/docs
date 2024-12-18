@@ -9,6 +9,7 @@ import Image from "@tiptap/extension-image";
 import ImageResize from "tiptap-extension-resize-image";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
+import Underline from "@tiptap/extension-underline";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { useEditorStore } from "@/store/useEditorStore";
@@ -38,6 +39,7 @@ const Editor = () => {
     },
     extensions: [
       StarterKit.configure({ heading: false }),
+      Underline,
       TaskList,
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       TaskItem.configure({ nested: true }),
