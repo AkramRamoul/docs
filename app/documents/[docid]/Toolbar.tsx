@@ -1,4 +1,9 @@
 "use client";
+import FontFamilyButton from "@/components/FontFamilyButton";
+import HeadingButton from "@/components/HeadingButton";
+import HighlightButton from "@/components/HighlightButton";
+import LinkButton from "@/components/LinkButton";
+import TextColorButton from "@/components/TextColorButton";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useEditorStore } from "@/store/useEditorStore";
@@ -125,19 +130,20 @@ function Toolbar() {
         <ToolbarButton key={item.label} {...item} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {/* //todo font families */}
+      <FontFamilyButton />
+      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+      <HeadingButton />
+
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       {/* //todo font sizes   */}
-      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {/* // todo Heading  */}
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
-      {/* // todo textcolor  */}
-      {/* // todo highlight color */}
+      <TextColorButton />
+      <HighlightButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {/* // todo link */}
+      <LinkButton />
       {/* // todo Image */}
       {/* // todo align */}
       {/* // todo line height */}

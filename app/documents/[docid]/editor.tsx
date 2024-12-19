@@ -3,9 +3,14 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import FontFamily from "@tiptap/extension-font-family";
+import TextStyle from "@tiptap/extension-text-style";
 import Heading from "@tiptap/extension-heading";
+import { Color } from "@tiptap/extension-color";
+import Link from "@tiptap/extension-link";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
+import HighLight from "@tiptap/extension-highlight";
 import ImageResize from "tiptap-extension-resize-image";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
@@ -40,7 +45,14 @@ const Editor = () => {
     extensions: [
       StarterKit.configure({ heading: false }),
       Underline,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+      }),
+      Color,
       TaskList,
+      HighLight.configure({ multicolor: true }),
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       TaskItem.configure({ nested: true }),
       Table.configure({
@@ -48,9 +60,11 @@ const Editor = () => {
       }),
       TableRow,
       TableHeader,
+      TextStyle,
       TableCell,
       Image,
       ImageResize,
+      FontFamily,
     ],
     content: `
         <p>This is a basic example of implementing images. Drag to re-order.</p>
@@ -66,7 +80,6 @@ const Editor = () => {
       },
     },
   });
-
   return (
     <div className="size-full overflow-auto bg-[#F9FBFD] px-4 print:p-0 print:bg-white print:overflow-visible">
       <div
