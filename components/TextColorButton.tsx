@@ -1,8 +1,12 @@
+"use client";
 import { useEditorStore } from "@/store/useEditorStore";
 import React from "react";
 import { type ColorResult, CompactPicker } from "react-color";
-import { DropdownMenu, DropdownMenuContent } from "./ui/dropdown-menu";
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 function TextColorButton() {
   const { editor } = useEditorStore();
