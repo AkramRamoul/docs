@@ -1,8 +1,13 @@
 "use client";
+import AlignButton from "@/components/AlignButton";
 import FontFamilyButton from "@/components/FontFamilyButton";
+import FontSizeButton from "@/components/FontSizeButton";
 import HeadingButton from "@/components/HeadingButton";
 import HighlightButton from "@/components/HighlightButton";
+import ImageButton from "@/components/ImageButton";
+import LineHeightButton from "@/components/LineHeigntButton";
 import LinkButton from "@/components/LinkButton";
+import ListButton from "@/components/ListButton";
 import TextColorButton from "@/components/TextColorButton";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -135,7 +140,7 @@ function Toolbar() {
       <HeadingButton />
 
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {/* //todo font sizes   */}
+      <FontSizeButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
@@ -144,10 +149,10 @@ function Toolbar() {
       <HighlightButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       <LinkButton />
-      {/* // todo Image */}
-      {/* // todo align */}
-      {/* // todo line height */}
-      {/* // todo list */}
+      <ImageButton />
+      <AlignButton />
+      <LineHeightButton />
+      <ListButton />
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
