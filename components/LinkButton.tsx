@@ -1,3 +1,4 @@
+"use client";
 import { useEditorStore } from "@/store/useEditorStore";
 import { useState } from "react";
 import {
@@ -11,14 +12,20 @@ import { Button } from "./ui/button";
 
 function LinkButton() {
   const { editor } = useEditorStore();
-  const [value, setValue] = useState(editor?.getAttributes("link").href || "");
+  const [value, setValue] = useState("");
 
   const onChange = (href: string) => {
     editor?.chain().focus().extendMarkRange("link").setLink({ href }).run();
-    setValue(href);
+    setValue("");
   };
   return (
-    <DropdownMenu>
+    <DropdownMenu
+      onOpenChange={(open) => {
+        if (!open) {
+          setValue(editor?.getAttributes("link").href || "");
+        }
+      }}
+    >
       <DropdownMenuTrigger asChild>
         <button className="h-7 min-w-7 shrink-0 rounded-sm hover:bg-neutral-200/80 flex flex-col items-center justify-center px-1.5 overflow-hidden text-sm">
           <Link2Icon className="w-4 h-4" />
@@ -30,7 +37,7 @@ function LinkButton() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <Button onClick={() => onChange(value)}></Button>
+        <Button onClick={() => onChange(value)}>Apply</Button>
       </DropdownMenuContent>
     </DropdownMenu>
   );
