@@ -18,6 +18,9 @@ import Underline from "@tiptap/extension-underline";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { useEditorStore } from "@/store/useEditorStore";
+import TextAlign from "@tiptap/extension-text-align";
+import { fontSizeExtention } from "../../_tiptapextentios/font-size";
+import { lineHeightExtention } from "@/app/_tiptapextentios/line-height";
 const Editor = () => {
   const { setEditor } = useEditorStore();
   const editor = useEditor({
@@ -45,6 +48,10 @@ const Editor = () => {
     extensions: [
       StarterKit.configure({ heading: false }),
       Underline,
+      lineHeightExtention.configure({
+        types: ["heading", "paragraph"],
+        defaultLineHeight: "normal",
+      }),
       Link.configure({
         openOnClick: false,
         autolink: true,
@@ -52,6 +59,10 @@ const Editor = () => {
       }),
       Color,
       TaskList,
+      fontSizeExtention,
+      TextAlign.configure({
+        types: ["heading", "paragraph", "list_item", "table_cell"],
+      }),
       HighLight.configure({ multicolor: true }),
       Heading.configure({ levels: [1, 2, 3, 4, 5, 6] }),
       TaskItem.configure({ nested: true }),
@@ -68,8 +79,9 @@ const Editor = () => {
     ],
     content: `
         <p>This is a basic example of implementing images. Drag to re-order.</p>
-        <img src="https://placehold.co/800x400" />
-        <img src="https://placehold.co/800x400/6A00F5/white" />
+
+        <p>This is a basic example of implementing images. Drag to re-order.</p>
+        
       `,
     immediatelyRender: false,
     editorProps: {
