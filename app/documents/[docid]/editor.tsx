@@ -78,12 +78,7 @@ const Editor = () => {
       ImageResize,
       FontFamily,
     ],
-    content: `
-        <p>This is a basic example of implementing images. Drag to re-order.</p>
 
-        <p>This is a basic example of implementing images. Drag to re-order.</p>
-        
-      `,
     immediatelyRender: false,
     editorProps: {
       attributes: {

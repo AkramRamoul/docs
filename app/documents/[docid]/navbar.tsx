@@ -34,8 +34,34 @@ import {
   Undo2Icon,
 } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
+import { useEditorStore } from "@/store/useEditorStore";
 
 function Navbar() {
+  const { editor } = useEditorStore();
+  const insertTable = (rows: number, cols: number) => {
+    editor
+      ?.chain()
+      .focus()
+      .insertTable({ rows: rows, cols: cols, withHeaderRow: false })
+      .run();
+  };
+  const OnDownload = (blob: Blob, filename: string) => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    document.body.appendChild(a);
+    a.href = url;
+    a.download = filename;
+    a.click();
+  };
+
+  const onSaveJson = () => {
+    if (!editor) return;
+    const json = editor?.getJSON();
+    const blob = new Blob([JSON.stringify(json)], {
+      type: "application/json",
+    });
+    OnDownload(blob, `doc.json`);
+  };
   return (
     <nav className="flex items-center justify-between">
       <div className="flex gap-2 items-center">
@@ -57,7 +83,7 @@ function Navbar() {
                       Save
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveJson}>
                         <FileJsonIcon className="size-4 mr-2" />
                         JSON
                       </MenubarItem>
@@ -103,13 +129,21 @@ function Navbar() {
                   Edit
                 </MenubarTrigger>
                 <MenubarContent>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() => {
+                      editor?.chain().focus().undo().run();
+                    }}
+                  >
                     <Undo2Icon className="size-4 mr-2" />
                     Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut>
                   </MenubarItem>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() => {
+                      editor?.chain().focus().redo().run();
+                    }}
+                  >
                     <Redo2Icon className="size-4 mr-2" />
-                    Undo <MenubarShortcut>Ctrl+Y</MenubarShortcut>
+                    Redo <MenubarShortcut>Ctrl+Y</MenubarShortcut>
                   </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
@@ -121,10 +155,34 @@ function Navbar() {
                   <MenubarSub>
                     <MenubarSubTrigger>Table</MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>1 X 1</MenubarItem>
-                      <MenubarItem>2 X 2</MenubarItem>
-                      <MenubarItem>3 X 3</MenubarItem>
-                      <MenubarItem>4 X 4</MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          insertTable(1, 1);
+                        }}
+                      >
+                        1 X 1
+                      </MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          insertTable(2, 2);
+                        }}
+                      >
+                        2 X 2
+                      </MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          insertTable(3, 3);
+                        }}
+                      >
+                        3 X 3
+                      </MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          insertTable(4, 4);
+                        }}
+                      >
+                        4 X 4
+                      </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
                 </MenubarContent>
@@ -140,26 +198,46 @@ function Navbar() {
                       Text
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          editor?.chain().focus().toggleBold().run();
+                        }}
+                      >
                         <BoldIcon className="size-4 mr-2" />
                         Bold <MenubarShortcut>Ctrl+B</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          editor?.chain().focus().toggleItalic().run();
+                        }}
+                      >
                         <ItalicIcon className="size-4 mr-2" />
                         Italic <MenubarShortcut>Ctrl+I</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          editor?.chain().focus().toggleUnderline().run();
+                        }}
+                      >
                         <UnderlineIcon className="size-4 mr-2" />
                         Underline <MenubarShortcut>Ctrl+U</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem
+                        onClick={() => {
+                          editor?.chain().focus().toggleStrike().run();
+                        }}
+                      >
                         <StrikethroughIcon className="size-4 mr-2" />
                         <span>Strikethrough&nbsp;&nbsp;</span>{" "}
                         <MenubarShortcut>Ctrl+Shift+S</MenubarShortcut>
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem
+                    onClick={() => {
+                      editor?.chain().focus().unsetAllMarks().run();
+                    }}
+                  >
                     <RemoveFormattingIcon className="size-4 mr-2" />
                     Clear formatting
                   </MenubarItem>
