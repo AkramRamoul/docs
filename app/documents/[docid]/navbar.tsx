@@ -62,6 +62,14 @@ function Navbar() {
     });
     OnDownload(blob, `doc.json`);
   };
+  const onSaveHtml = () => {
+    if (!editor) return;
+    const content = editor?.getHTML();
+    const blob = new Blob([content], {
+      type: "application/json",
+    });
+    OnDownload(blob, `doc.html`);
+  };
   return (
     <nav className="flex items-center justify-between">
       <div className="flex gap-2 items-center">
@@ -87,7 +95,7 @@ function Navbar() {
                         <FileJsonIcon className="size-4 mr-2" />
                         JSON
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveHtml}>
                         <GlobeIcon className="size-4 mr-2" />
                         HTML
                       </MenubarItem>
