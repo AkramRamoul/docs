@@ -66,9 +66,17 @@ function Navbar() {
     if (!editor) return;
     const content = editor?.getHTML();
     const blob = new Blob([content], {
-      type: "application/json",
+      type: "text/html",
     });
     OnDownload(blob, `doc.html`);
+  };
+  const onSaveText = () => {
+    if (!editor) return;
+    const content = editor?.getText();
+    const blob = new Blob([content], {
+      type: "text/plain",
+    });
+    OnDownload(blob, `doc.text`);
   };
   return (
     <nav className="flex items-center justify-between">
@@ -103,7 +111,7 @@ function Navbar() {
                         <BsFilePdf className="size-4 mr-2" />
                         PDF
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveText}>
                         <FileTextIcon className="size-4 mr-2" />
                         Text
                       </MenubarItem>
