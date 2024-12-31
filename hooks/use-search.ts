@@ -1,8 +1,8 @@
 import { parseAsString, useQueryState } from "nuqs";
 
-export function useSearch(key: string) {
+export function useSearch() {
   return useQueryState(
-    key,
+    "search",
     parseAsString.withDefault("").withOptions({
       clearOnDefault: true,
     })
