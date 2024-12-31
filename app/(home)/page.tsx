@@ -1,5 +1,5 @@
-import Link from "next/link";
 import NavBar from "./navbar";
+import Templates from "./template-gallery";
 
 function Home() {
   return (
@@ -8,10 +8,7 @@ function Home() {
         <NavBar />
       </div>
       <div className="mt-16">
-        <Link href="/documents/123">
-          Click <span className="underline text-blue-500">Here</span> to go
-          dynamuc route
-        </Link>
+        <Templates />
       </div>
     </div>
   );
