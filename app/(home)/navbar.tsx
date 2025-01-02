@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import SearchInput from "./searchInput";
-
+import { UserButton } from "@clerk/nextjs";
 function NavBar() {
   return (
     <nav className="flex items-center justify-between h-full w-full">
@@ -13,7 +13,7 @@ function NavBar() {
         <h3 className="text-xl">Docs</h3>
       </div>
       <SearchInput />
-      <div />
+      <UserButton />
     </nav>
   );
 }
