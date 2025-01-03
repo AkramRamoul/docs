@@ -21,7 +21,9 @@ function Home() {
       </div>
       <div className="mt-16">
         <Templates />
-        {documents?.map((document) => <div key={document._id} />)}
+        {documents?.map((document) => (
+          <span key={document._id}>{document.title}</span>
+        ))}
       </div>
     </div>
   );

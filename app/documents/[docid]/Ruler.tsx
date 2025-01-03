@@ -42,9 +42,6 @@ function Ruler() {
         }
       }
     }
-    if (isDraggingRight) {
-      console.log("right dragging");
-    }
   };
 
   const handleMouseUp = () => {
@@ -132,7 +129,6 @@ function Marker({
   onDoubleClick,
   onMouseDown,
 }: MarkerProps) {
-  console.log(isLeft, position);
   return (
     <div
       className="absolute top-0 w-4 h-full cursor-ew-resize z-[5] group -ml-2"
