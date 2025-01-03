@@ -5,6 +5,7 @@ import React from "react";
 import { Building2Icon, CircleUserIcon } from "lucide-react";
 import { format } from "date-fns";
 import DropDown from "./DropDown";
+import { useRouter } from "next/navigation";
 interface DocumentRowProps {
   document: Doc<"documents">;
 }
@@ -12,8 +13,16 @@ function DocumentRow({ document }: DocumentRowProps) {
   const onNewTab = (id: string) => {
     window.open(`documents/${id}`, "_blank");
   };
+  const router = useRouter();
+
+  const onRowClick = (id: string) => {
+    router.push(`documents/${id}`);
+  };
   return (
-    <TableRow className="cursor-pointer">
+    <TableRow
+      className="cursor-pointer"
+      onClick={() => onRowClick(document._id)}
+    >
       <TableCell className="w-[50px]">
         <SiGoogledocs className="size-6 fill-blue-500" />
       </TableCell>

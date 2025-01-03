@@ -5,9 +5,15 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import RenameDialog from "@/components/UpdateButton";
 import { Id } from "@/convex/_generated/dataModel";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { ExternalLinkIcon, MoreVertical, Trash, TrashIcon } from "lucide-react";
+import {
+  ExternalLinkIcon,
+  FilePenIcon,
+  MoreVertical,
+  TrashIcon,
+} from "lucide-react";
 import React from "react";
 
 interface DropDownProps {
@@ -39,6 +45,19 @@ function DropDown({ documnetId, title, onNewTab }: DropDownProps) {
             Remove
           </DropdownMenuItem>
         </DeleteDialogue>
+        <RenameDialog documentId={documnetId} initialTitle={title}>
+          <DropdownMenuItem
+            onSelect={(e) => {
+              e.preventDefault();
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <FilePenIcon className="size-4 mr-2" />
+            Rename
+          </DropdownMenuItem>
+        </RenameDialog>
         <DropdownMenuItem>
           <ExternalLinkIcon className="size-4 mr-2" />
           Open in new tab
