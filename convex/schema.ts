@@ -6,7 +6,6 @@ export default defineSchema({
     title: v.string(),
     initialContent: v.optional(v.string()),
     ownerId: v.string(),
-    content: v.string(),
     roomId: v.optional(v.string()),
     organizationId: v.optional(v.string()),
   })
