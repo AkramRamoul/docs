@@ -9,14 +9,19 @@ import {
   AlertDialogTrigger,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { Alert } from "./ui/alert";
 import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
+import { useMutation } from "convex/react";
+import { useState } from "react";
 interface DialogProps {
   documentId: Id<"documents">;
   children: React.ReactNode;
 }
 function DeleteDialogue({ documentId, children }: DialogProps) {
+  const Delete = useMutation(api.documents.deleteByID);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
@@ -36,7 +41,17 @@ function DeleteDialogue({ documentId, children }: DialogProps) {
           >
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction>Delete</AlertDialogAction>
+          <AlertDialogAction
+            disabled={isDeleting}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsDeleting(true);
+              Delete({ id: documentId }).finally(() => setIsDeleting(false));
+            }}
+            className="bg-destructive hover:bg-destructive"
+          >
+            Delete
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
