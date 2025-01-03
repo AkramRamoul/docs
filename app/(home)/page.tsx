@@ -1,18 +1,16 @@
 "use client";
-import { useQuery } from "convex/react";
+import { usePaginatedQuery } from "convex/react";
 import NavBar from "./navbar";
 import Templates from "./template-gallery";
 import { api } from "@/convex/_generated/api";
-import { Loader2 } from "lucide-react";
+import DocumentsList from "./DocumentsList";
 
 function Home() {
-  const documents = useQuery(api.documents.listDocuments);
-  if (documents === undefined)
-    return (
-      <div className="flex items-center justify-center w-full h-screen">
-        <Loader2 className="animate-spin h-12 w-12" />
-      </div>
-    );
+  const { results, status, loadMore } = usePaginatedQuery(
+    api.documents.listDocuments,
+    {},
+    { initialNumItems: 5 }
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -21,9 +19,11 @@ function Home() {
       </div>
       <div className="mt-16">
         <Templates />
-        {documents?.map((document) => (
-          <span key={document._id}>{document.title}</span>
-        ))}
+        <DocumentsList
+          documents={results}
+          loadMore={loadMore}
+          status={status}
+        />
       </div>
     </div>
   );
