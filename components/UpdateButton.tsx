@@ -14,6 +14,7 @@ import { useMutation } from "convex/react";
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { toast } from "sonner";
 interface DialogProps {
   documentId: Id<"documents">;
   children: React.ReactNode;
@@ -32,10 +33,13 @@ function RenameDialog({ documentId, initialTitle, children }: DialogProps) {
     Update({ id: documentId, title: title.trim() || "Untitled" })
       .then(() => {
         setOpen(false);
+        toast.success("Saved");
       })
-      .finally(() => {
-        setIsUpdating(false);
-      });
+      .catch((error) => {
+        console.error(error);
+        toast.error("Error saving the document.");
+      })
+      .finally(() => setIsUpdating(false));
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -14,6 +14,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { useState } from "react";
+import { toast } from "sonner";
 interface DialogProps {
   documentId: Id<"documents">;
   children: React.ReactNode;
@@ -46,7 +47,15 @@ function DeleteDialogue({ documentId, children }: DialogProps) {
             onClick={(e) => {
               e.stopPropagation();
               setIsDeleting(true);
-              Delete({ id: documentId }).finally(() => setIsDeleting(false));
+              Delete({ id: documentId })
+                .then(() => {
+                  toast.success("Document deleted successfully");
+                })
+                .catch((error) => {
+                  console.error(error);
+                  toast.error("Unauthorized");
+                })
+                .finally(() => setIsDeleting(false));
             }}
             className="bg-destructive hover:bg-destructive"
           >

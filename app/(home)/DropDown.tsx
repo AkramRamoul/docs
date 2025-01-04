@@ -22,7 +22,6 @@ interface DropDownProps {
   onNewTab: (id: Id<"documents">) => void;
 }
 function DropDown({ documnetId, title, onNewTab }: DropDownProps) {
-  console.log(documnetId);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
