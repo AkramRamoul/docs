@@ -1,5 +1,6 @@
 import Editor from "./editor";
 import Navbar from "./navbar";
+import { Room } from "./Room";
 import Toolbar from "./Toolbar";
 
 async function Home() {
@@ -10,7 +11,9 @@ async function Home() {
         <Toolbar />
       </div>
       <div className="pt-[114px] print:pt-0">
-        <Editor />
+        <Room>
+          <Editor />
+        </Room>
       </div>
     </div>
   );

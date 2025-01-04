@@ -1,5 +1,6 @@
 "use client";
 
+import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { useEditor, EditorContent } from "@tiptap/react";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
@@ -22,7 +23,9 @@ import TextAlign from "@tiptap/extension-text-align";
 import { fontSizeExtention } from "../../_tiptapextentios/font-size";
 import { lineHeightExtention } from "@/app/_tiptapextentios/line-height";
 import Ruler from "./Ruler";
+import { Threads } from "./Threads";
 const Editor = () => {
+  const liveBlocks = useLiveblocksExtension();
   const { setEditor } = useEditorStore();
   const editor = useEditor({
     onDestroy() {
@@ -47,7 +50,8 @@ const Editor = () => {
       setEditor(editor);
     },
     extensions: [
-      StarterKit.configure({ heading: false }),
+      liveBlocks,
+      StarterKit.configure({ heading: false, history: false }),
       Underline,
       lineHeightExtention.configure({
         types: ["heading", "paragraph"],
@@ -96,6 +100,7 @@ const Editor = () => {
       print:w-full print:min-w-0"
       >
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
       </div>
     </div>
   );
