@@ -8,7 +8,8 @@ function ErrorPage({
   error,
   reset,
 }: {
-  error: Error & { digest?: string; reset: () => void };
+  error: Error & { digest?: string };
+  reset: () => void;
 }) {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center space-y-6">
