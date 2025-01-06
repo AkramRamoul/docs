@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { LoaderIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import DocumentRow from "./DocumentRow";
 import { Button } from "@/components/ui/button";
 interface DocumentsListProps {
@@ -22,7 +22,7 @@ function DocumentsList({ documents, loadMore, status }: DocumentsListProps) {
     <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-5">
       {documents === undefined ? (
         <div className="flex justify-center items-center h-24">
-          <LoaderIcon className="animate-spin size-5 text-muted-foreground" />
+          <Loader2 className="animate-spin size-5 text-muted-foreground" />
         </div>
       ) : (
         <Table>
