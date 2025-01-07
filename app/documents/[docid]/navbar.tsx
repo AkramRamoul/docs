@@ -38,8 +38,12 @@ import { useEditorStore } from "@/store/useEditorStore";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import Avatars from "./Avatars";
 import Inbox from "./inbox";
+import { Doc } from "@/convex/_generated/dataModel";
 
-function Navbar() {
+interface NavbarProps {
+  data: Doc<"documents">;
+}
+function Navbar({ data }: NavbarProps) {
   const { editor } = useEditorStore();
   const insertTable = (rows: number, cols: number) => {
     editor
@@ -63,7 +67,7 @@ function Navbar() {
     const blob = new Blob([JSON.stringify(json)], {
       type: "application/json",
     });
-    OnDownload(blob, `doc.json`);
+    OnDownload(blob, `${data.title}.json`);
   };
   const onSaveHtml = () => {
     if (!editor) return;
@@ -71,7 +75,7 @@ function Navbar() {
     const blob = new Blob([content], {
       type: "text/html",
     });
-    OnDownload(blob, `doc.html`);
+    OnDownload(blob, `${data.title}.html`);
   };
   const onSaveText = () => {
     if (!editor) return;
@@ -79,7 +83,7 @@ function Navbar() {
     const blob = new Blob([content], {
       type: "text/plain",
     });
-    OnDownload(blob, `doc.text`);
+    OnDownload(blob, `${data.title}.text`);
   };
   return (
     <nav className="flex items-center justify-between">
@@ -88,7 +92,7 @@ function Navbar() {
           <Image src="/logo.svg" alt="Logo" width={36} height={36} />
         </Link>
         <div className="flex flex-col">
-          <DocInput />
+          <DocInput title={data.title} id={data._id} />
           <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
               <MenubarMenu>
