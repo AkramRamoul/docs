@@ -24,7 +24,10 @@ import { fontSizeExtention } from "../../_tiptapextentios/font-size";
 import { lineHeightExtention } from "@/app/_tiptapextentios/line-height";
 import Ruler from "./Ruler";
 import { Threads } from "./Threads";
+import { useStorage } from "@liveblocks/react";
 const Editor = () => {
+  const leftMargin = useStorage((root) => root.leftMargin);
+  const rightMargin = useStorage((root) => root.rightMargin);
   const liveBlocks = useLiveblocksExtension();
   const { setEditor } = useEditorStore();
   const editor = useEditor({
@@ -86,7 +89,7 @@ const Editor = () => {
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        style: "padding-left:56px; padding-right:56px",
+        style: `padding-left:${leftMargin ?? 56}px; padding-right:${rightMargin ?? 56}px`,
         class:
           "focus:outline-none print:border-0 border border-[#C7C7C7] bg-white flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor:text",
       },
