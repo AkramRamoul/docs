@@ -25,10 +25,17 @@ import { lineHeightExtention } from "@/app/_tiptapextentios/line-height";
 import Ruler from "./Ruler";
 import { Threads } from "./Threads";
 import { useStorage } from "@liveblocks/react";
-const Editor = () => {
+
+interface Props {
+  initialContent: string | undefined;
+}
+const Editor = ({ initialContent }: Props) => {
   const leftMargin = useStorage((root) => root.leftMargin);
   const rightMargin = useStorage((root) => root.rightMargin);
-  const liveBlocks = useLiveblocksExtension();
+  const liveBlocks = useLiveblocksExtension({
+    initialContent: initialContent,
+    offlineSupport_experimental: true,
+  });
   const { setEditor } = useEditorStore();
   const editor = useEditor({
     onDestroy() {
