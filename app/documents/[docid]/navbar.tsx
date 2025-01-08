@@ -36,7 +36,6 @@ import {
 import { BsFilePdf } from "react-icons/bs";
 import { useEditorStore } from "@/store/useEditorStore";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-import Avatars from "./Avatars";
 import Inbox from "./inbox";
 import { Doc } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
@@ -44,6 +43,7 @@ import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import RenameDialog from "@/components/UpdateButton";
 import DeleteDialogue from "@/components/DeleteDialogue";
+import { Avatars } from "../../../components/Avatars";
 interface NavbarProps {
   data: Doc<"documents">;
 }

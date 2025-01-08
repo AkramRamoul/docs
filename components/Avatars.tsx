@@ -1,6 +1,6 @@
 "use client";
 import { useOthers, useSelf } from "@liveblocks/react/suspense";
-import { ClientSideSuspense } from "@liveblocks/react/";
+import { ClientSideSuspense } from "@liveblocks/react";
 import { Separator } from "@/components/ui/separator";
 
 const SIZE = 36;
@@ -9,15 +9,13 @@ interface AvatarProps {
   name: string;
 }
 
-function Avatars() {
+export function Avatars() {
   return (
     <ClientSideSuspense fallback={null}>
       <AvatarsStack />
     </ClientSideSuspense>
   );
 }
-
-export default Avatars;
 
 function AvatarsStack() {
   const users = useOthers();
