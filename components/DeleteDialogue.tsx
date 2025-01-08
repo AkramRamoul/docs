@@ -13,6 +13,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation } from "convex/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 interface DialogProps {
@@ -22,6 +23,7 @@ interface DialogProps {
 function DeleteDialogue({ documentId, children }: DialogProps) {
   const Delete = useMutation(api.documents.deleteByID);
   const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
 
   return (
     <AlertDialog>
@@ -47,6 +49,7 @@ function DeleteDialogue({ documentId, children }: DialogProps) {
             onClick={(e) => {
               e.stopPropagation();
               setIsDeleting(true);
+              router.push("/");
               Delete({ id: documentId })
                 .then(() => {
                   toast.success("Document deleted successfully");
